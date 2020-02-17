@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Hôte : plak.myd.infomaniak.com
--- Généré le :  lun. 17 fév. 2020 à 22:32
--- Version du serveur :  5.7.26-log
--- Version de PHP :  7.2.27
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  lun. 17 fév. 2020 à 22:33
+-- Version du serveur :  5.7.19
+-- Version de PHP :  5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,10 +28,12 @@ SET time_zone = "+00:00";
 -- Structure de la table `bdd_actifs`
 --
 
-CREATE TABLE `bdd_actifs` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `bdd_actifs`;
+CREATE TABLE IF NOT EXISTS `bdd_actifs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `bdd_actifs`
@@ -52,10 +54,12 @@ INSERT INTO `bdd_actifs` (`id`, `nom`) VALUES
 -- Structure de la table `bdd_regions`
 --
 
-CREATE TABLE `bdd_regions` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `bdd_regions`;
+CREATE TABLE IF NOT EXISTS `bdd_regions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `bdd_regions`
@@ -83,11 +87,13 @@ INSERT INTO `bdd_regions` (`id`, `nom`) VALUES
 -- Structure de la table `bdd_srri`
 --
 
-CREATE TABLE `bdd_srri` (
+DROP TABLE IF EXISTS `bdd_srri`;
+CREATE TABLE IF NOT EXISTS `bdd_srri` (
   `id_unitedecompte` int(11) NOT NULL,
   `srri` int(11) NOT NULL,
   `date` date NOT NULL,
-  `source` varchar(255) NOT NULL
+  `source` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_unitedecompte`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -806,10 +812,12 @@ INSERT INTO `bdd_srri` (`id_unitedecompte`, `srri`, `date`, `source`) VALUES
 -- Structure de la table `bdd_unitesdecompte_actifs`
 --
 
-CREATE TABLE `bdd_unitesdecompte_actifs` (
+DROP TABLE IF EXISTS `bdd_unitesdecompte_actifs`;
+CREATE TABLE IF NOT EXISTS `bdd_unitesdecompte_actifs` (
   `id_unitedecompte` int(11) NOT NULL,
   `id_actif` int(11) NOT NULL,
-  `pourcentage` decimal(5,2) NOT NULL
+  `pourcentage` decimal(5,2) NOT NULL,
+  PRIMARY KEY (`id_unitedecompte`,`id_actif`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -3168,9 +3176,11 @@ INSERT INTO `bdd_unitesdecompte_actifs` (`id_unitedecompte`, `id_actif`, `pource
 -- Structure de la table `bdd_unitesdecompte_actions`
 --
 
-CREATE TABLE `bdd_unitesdecompte_actions` (
+DROP TABLE IF EXISTS `bdd_unitesdecompte_actions`;
+CREATE TABLE IF NOT EXISTS `bdd_unitesdecompte_actions` (
   `id_unitedecompte` int(11) NOT NULL,
-  `id_actions` int(11) NOT NULL
+  `id_actions` int(11) NOT NULL,
+  PRIMARY KEY (`id_unitedecompte`,`id_actions`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -3755,10 +3765,12 @@ INSERT INTO `bdd_unitesdecompte_actions` (`id_unitedecompte`, `id_actions`) VALU
 -- Structure de la table `bdd_unitesdecompte_regions`
 --
 
-CREATE TABLE `bdd_unitesdecompte_regions` (
+DROP TABLE IF EXISTS `bdd_unitesdecompte_regions`;
+CREATE TABLE IF NOT EXISTS `bdd_unitesdecompte_regions` (
   `id_unitedecompte` int(11) NOT NULL,
   `id_region` int(11) NOT NULL,
-  `pourcentage` decimal(5,2) NOT NULL
+  `pourcentage` decimal(5,2) NOT NULL,
+  PRIMARY KEY (`id_unitedecompte`,`id_region`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -9972,10 +9984,12 @@ INSERT INTO `bdd_unitesdecompte_regions` (`id_unitedecompte`, `id_region`, `pour
 -- Structure de la table `bdd_valeurs`
 --
 
-CREATE TABLE `bdd_valeurs` (
+DROP TABLE IF EXISTS `bdd_valeurs`;
+CREATE TABLE IF NOT EXISTS `bdd_valeurs` (
   `id_unitedecompte` int(11) NOT NULL,
   `date_valeur` bigint(20) NOT NULL,
-  `valeur` decimal(8,2) NOT NULL
+  `valeur` decimal(8,2) NOT NULL,
+  PRIMARY KEY (`id_unitedecompte`,`date_valeur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -97461,10 +97475,12 @@ INSERT INTO `bdd_valeurs` (`id_unitedecompte`, `date_valeur`, `valeur`) VALUES
 -- Structure de la table `fondseuro`
 --
 
-CREATE TABLE `fondseuro` (
+DROP TABLE IF EXISTS `fondseuro`;
+CREATE TABLE IF NOT EXISTS `fondseuro` (
   `id_utilisateur` int(11) NOT NULL,
   `id_portefeuille` int(11) NOT NULL,
-  `pourcentage` int(11) NOT NULL
+  `pourcentage` int(11) NOT NULL,
+  PRIMARY KEY (`id_utilisateur`,`id_portefeuille`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -97665,11 +97681,13 @@ INSERT INTO `fondseuro` (`id_utilisateur`, `id_portefeuille`, `pourcentage`) VAL
 -- Structure de la table `paypal_comptes`
 --
 
-CREATE TABLE `paypal_comptes` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `paypal_comptes`;
+CREATE TABLE IF NOT EXISTS `paypal_comptes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_utilisateur` int(11) NOT NULL,
   `paypal` varchar(255) NOT NULL,
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -97678,11 +97696,13 @@ CREATE TABLE `paypal_comptes` (
 -- Structure de la table `paypal_versements`
 --
 
-CREATE TABLE `paypal_versements` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `paypal_versements`;
+CREATE TABLE IF NOT EXISTS `paypal_versements` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_utilisateur` int(11) NOT NULL,
   `montant` decimal(8,2) NOT NULL,
-  `date` datetime NOT NULL
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -97691,9 +97711,11 @@ CREATE TABLE `paypal_versements` (
 -- Structure de la table `recommandations`
 --
 
-CREATE TABLE `recommandations` (
+DROP TABLE IF EXISTS `recommandations`;
+CREATE TABLE IF NOT EXISTS `recommandations` (
   `id_emetteur` int(11) NOT NULL,
-  `id_recommandation` int(11) NOT NULL
+  `id_recommandation` int(11) NOT NULL,
+  PRIMARY KEY (`id_emetteur`,`id_recommandation`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -97727,8 +97749,10 @@ INSERT INTO `recommandations` (`id_emetteur`, `id_recommandation`) VALUES
 -- Structure de la table `temp`
 --
 
-CREATE TABLE `temp` (
-  `id_unitedecompte` int(11) NOT NULL
+DROP TABLE IF EXISTS `temp`;
+CREATE TABLE IF NOT EXISTS `temp` (
+  `id_unitedecompte` int(11) NOT NULL,
+  PRIMARY KEY (`id_unitedecompte`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -97866,13 +97890,15 @@ INSERT INTO `temp` (`id_unitedecompte`) VALUES
 -- Structure de la table `unitesdecompte`
 --
 
-CREATE TABLE `unitesdecompte` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `unitesdecompte`;
+CREATE TABLE IF NOT EXISTS `unitesdecompte` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `isin` varchar(255) NOT NULL,
   `nom` varchar(255) NOT NULL,
   `date_donnees` date DEFAULT NULL,
-  `chemin_morningstar` varchar(255) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `chemin_morningstar` varchar(255) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=748 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `unitesdecompte`
@@ -98590,18 +98616,285 @@ INSERT INTO `unitesdecompte` (`id`, `isin`, `nom`, `date_donnees`, `chemin_morni
 -- Structure de la table `utilisateurs`
 --
 
-CREATE TABLE `utilisateurs` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `utilisateurs`;
+CREATE TABLE IF NOT EXISTS `utilisateurs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
-  `mdp` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `mdp` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=517 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `utilisateurs`
 --
 
 INSERT INTO `utilisateurs` (`id`, `nom`, `mdp`) VALUES
-(1, 'Admin', '*****');
+(1, 'Admin', '*****'),
+(2, 'Admin2', '*****'),
+(3, 'nico6259', '*****'),
+(4, 'stephaneF', '*****'),
+(5, 'le pote', '*****'),
+(6, 'Josiane>All', '*****'),
+(7, 'dJe781', '*****'),
+(8, 'ATOUUUM', '*****'),
+(9, '06nicolas', '*****'),
+(10, 'Bigdata', '*****'),
+(11, 'Vetocom', '*****'),
+(12, 'Shadow666', '*****'),
+(13, 'Campos', '*****'),
+(14, 'maitre renard', '*****'),
+(15, 'NicolasFo', '*****'),
+(16, 'Painsec', '*****'),
+(17, 'Malolechat', '*****'),
+(18, 'Christophe', '*****'),
+(269, 'monpseudoestpri', '*****'),
+(270, 'toto408', '*****'),
+(271, 'Kevinpoutou', '*****'),
+(272, 'azubal', '*****'),
+(273, 'Asgard', '*****'),
+(274, 'eclaireur', '*****'),
+(275, 'RoniqueManou', '*****'),
+(276, 'Wallenberg', '*****'),
+(277, 'Amorgrid', '*****'),
+(278, 'Juliosos', '*****'),
+(279, 'Olivier', '*****'),
+(280, 'Jer3', '*****'),
+(281, 'PropJoe', '*****'),
+(282, 'tarik', '*****'),
+(283, 'pipould', '*****'),
+(284, 'rampa99', '*****'),
+(285, 'zeqL', '*****'),
+(286, 'starlette27', '*****'),
+(287, 'glandoll', '*****'),
+(288, 'Kant', '*****'),
+(289, 'herve', '*****'),
+(290, 'vandepj0', '*****'),
+(291, 'pedrobelette', '*****'),
+(292, 'toto408_gl', '*****'),
+(293, 'Samuel222', '*****'),
+(294, 'ylou', '*****'),
+(295, 'damdam', '*****'),
+(296, 'NinoPeperoni', '*****'),
+(297, 'poinphil', '*****'),
+(298, 'Danal', '*****'),
+(299, 'jeff91trader', '*****'),
+(300, 'outremer', '*****'),
+(301, 'cedicia', '*****'),
+(302, 'alaflamout', '*****'),
+(303, 'Test', '*****'),
+(304, 'Qenifra', '*****'),
+(305, 'BarbeIndienne', '*****'),
+(306, 'PierreM', '*****'),
+(307, 'Highlander', '*****'),
+(308, 'elfshadow', '*****'),
+(309, 'sebirt', '*****'),
+(310, 'nono', '*****'),
+(311, 'mko', '*****'),
+(312, 'RD2', '*****'),
+(313, 'jpacaf', '*****'),
+(314, 'wget', '*****'),
+(315, 'corbacko', '*****'),
+(316, 'Kh', '*****'),
+(317, 't', '*****'),
+(318, 'edge', '*****'),
+(319, 'simini', '*****'),
+(320, 'tonixity', '*****'),
+(321, 'nawak', '*****'),
+(322, 'Aenor', '*****'),
+(323, 'guizmotito', '*****'),
+(324, 'david42fr', '*****'),
+(325, 'Sallie', '*****'),
+(326, '_probleme_', '*****'),
+(327, 'dja', '*****'),
+(328, 'Keijax', '*****'),
+(329, 'TwentySix', '*****'),
+(330, 'philippe', '*****'),
+(331, 'Sooo', '*****'),
+(332, 'XSalehu', '*****'),
+(333, 'Mitch2Pain', '*****'),
+(334, 'gemtest', '*****'),
+(335, 'texo', '*****'),
+(336, 'faitchier', '*****'),
+(337, 'Kyjja', '*****'),
+(338, 'Toast', '*****'),
+(339, 'Hardtek', '*****'),
+(340, 'c46', '*****'),
+(341, 'Porcinet', '*****'),
+(342, 'Isukthar', '*****'),
+(343, 'data', '*****'),
+(344, 'TicEtTac', '*****'),
+(345, 'TriniTa_911', '*****'),
+(346, 'Vinalys', '*****'),
+(347, 'LeAmAs', '*****'),
+(348, 'Yimgo', '*****'),
+(349, 'starseb', '*****'),
+(350, 'guigui', '*****'),
+(351, 'gmallants', '*****'),
+(352, 'starlette271', '*****'),
+(353, 'vingte', '*****'),
+(354, 'agmoh', '*****'),
+(355, 'Lachevre', '*****'),
+(356, 'robertinhop', '*****'),
+(357, 'frankie_flowers', '*****'),
+(358, 'Pomme_abricot', '*****'),
+(359, 'AntoNov', '*****'),
+(360, 'ludovic', '*****'),
+(361, 'vars', '*****'),
+(362, 'Shugashu', '*****'),
+(363, 'Jojo', '*****'),
+(364, 's3b', '*****'),
+(365, 'momo', '*****'),
+(366, 'Agryer', '*****'),
+(367, 'LooKooM', '*****'),
+(368, 'heyjack', '*****'),
+(369, 'Aernare', '*****'),
+(370, 'igandh', '*****'),
+(371, 'timtimmy', '*****'),
+(372, 'Magwan', '*****'),
+(373, 'BenB', '*****'),
+(374, 'raukoras', '*****'),
+(375, 'PsykOoO', '*****'),
+(376, 'MitchTest', '*****'),
+(377, 'Lustig', '*****'),
+(378, 'krisy69', '*****'),
+(379, '_Sky_', '*****'),
+(380, 'slyvain', '*****'),
+(381, 'Niouss', '*****'),
+(382, 'flok72', '*****'),
+(383, 'MichelVedette', '*****'),
+(384, 'nitneuq', '*****'),
+(385, 'SIMOTHE', '*****'),
+(386, 'Praise', '*****'),
+(387, 'seeds', '*****'),
+(388, 'ucompte', '*****'),
+(389, 'rafmani95', '*****'),
+(390, 'kflo72', '*****'),
+(391, 'petite_fraise', '*****'),
+(392, 'ticettac14', '*****'),
+(393, 'kurapix', '*****'),
+(394, 'TrueArm', '*****'),
+(395, 'bazia', '*****'),
+(396, 'Morwenne', '*****'),
+(397, 'Pavlov', '*****'),
+(398, 'Linux26700', '*****'),
+(399, 'jakwarrior', '*****'),
+(400, 'Gui', '*****'),
+(401, 'Galork', '*****'),
+(402, 'Masahiko', '*****'),
+(403, 'Krosso', '*****'),
+(404, 'tomazico', '*****'),
+(405, 'nrgtik', '*****'),
+(406, 'Thom', '*****'),
+(407, 'anna', '*****'),
+(408, 'PERRET', '*****'),
+(409, 'Splendens', '*****'),
+(410, 'oxas', '*****'),
+(411, 'arf', '*****'),
+(412, 'random_guy', '*****'),
+(413, 'Funtwo', '*****'),
+(414, 'Reymond', '*****'),
+(415, 'qjat', '*****'),
+(416, 'MajorX', '*****'),
+(417, 'Lokiii66', '*****'),
+(418, 'nadinou', '*****'),
+(419, 'MILKA', '*****'),
+(420, 'Toto', '*****'),
+(421, 'iubito', '*****'),
+(422, 'narsyt', '*****'),
+(423, 'bguinet', '*****'),
+(424, 'emy', '*****'),
+(425, 'Tomlec', '*****'),
+(426, 'Nico63540', '*****'),
+(427, 'cyberdoud', '*****'),
+(428, 'fabdroopy', '*****'),
+(429, 'Kiks67', '*****'),
+(430, 'Dap', '*****'),
+(431, 'IK', '*****'),
+(432, 'randomguy', '*****'),
+(433, 'Barique', '*****'),
+(434, 'ttam', '*****'),
+(435, 'jack2', '*****'),
+(436, 'Scorpion_san', '*****'),
+(437, 'bendal', '*****'),
+(438, 'JV44', '*****'),
+(439, 'chusser', '*****'),
+(440, 'kalmouk', '*****'),
+(441, 'Squareseidh', '*****'),
+(442, 'wizoux', '*****'),
+(443, 'Neo', '*****'),
+(444, 'zedt1', '*****'),
+(445, 'MELKYOU', '*****'),
+(446, 'FDPSV', '*****'),
+(447, 'lokinours', '*****'),
+(448, 'darwin123', '*****'),
+(449, 'vce65', '*****'),
+(450, 'cu8queiVhohg1ei', '*****'),
+(451, 'clement360', '*****'),
+(452, 'MathiasR', '*****'),
+(453, 'bgbv', '*****'),
+(454, 'aass', '*****'),
+(455, 'guizmotito2', '*****'),
+(456, 'Gosferayn', '*****'),
+(457, 'Ju2banane', '*****'),
+(458, 'julienM49', '*****'),
+(459, 'Springle', '*****'),
+(460, 'nico', '*****'),
+(461, 'shangwei', '*****'),
+(462, 'pascal', '*****'),
+(463, 'Buxerol', '*****'),
+(464, 'gillespat', '*****'),
+(465, 'Germain', '*****'),
+(466, 'gusano', '*****'),
+(467, 'MightyEyeball', '*****'),
+(468, 'Nvidia32', '*****'),
+(469, 'Cl3m3nt', '*****'),
+(470, 'Ludor', '*****'),
+(471, 'Divi_', '*****'),
+(472, 'Maxvador', '*****'),
+(473, 'trixky', '*****'),
+(474, 'edr3c', '*****'),
+(475, 'VinSouZe', '*****'),
+(476, 'DUBUIS', '*****'),
+(477, 'gui86', '*****'),
+(478, 'quorumsensing', '*****'),
+(479, 'Jerem7589', '*****'),
+(480, 'Razorbacky', '*****'),
+(481, 'Kanoaxe', '*****'),
+(482, 'fiammifero', '*****'),
+(483, 'CobraGuru', '*****'),
+(484, 'Julius', '*****'),
+(485, 'aqws1', '*****'),
+(486, 'dd', '*****'),
+(487, 'Kibis', '*****'),
+(488, 'haye', '*****'),
+(489, 'Pinguy45', '*****'),
+(490, 'Morjoc', '*****'),
+(491, 'Justin', '*****'),
+(492, 'Pili', '*****'),
+(493, 'Anonyme', '*****'),
+(494, 'KaTri', '*****'),
+(495, 'Graffiti', '*****'),
+(496, 'mox92', '*****'),
+(497, 'axelusminus', '*****'),
+(498, 'PORTIE', '*****'),
+(499, 'Unko', '*****'),
+(500, 'Nikso91', '*****'),
+(501, 'Sherender', '*****'),
+(502, 'Korgall', '*****'),
+(503, 'zebulon', '*****'),
+(504, 'EtilaS', '*****'),
+(505, 'Luneo', '*****'),
+(506, 'AlKy', '*****'),
+(507, 'serial31', '*****'),
+(508, 'meuniere', '*****'),
+(509, 'goulba', '*****'),
+(510, 'nrichard', '*****'),
+(511, 'Dardar', '*****'),
+(512, 'vyrale', '*****'),
+(513, 'ADRIEN2A92', '*****'),
+(514, 'MelonHusk', '*****'),
+(515, 'EA', '*****'),
+(516, 'kaloskagatos', '*****');
 
 -- --------------------------------------------------------
 
@@ -98609,12 +98902,14 @@ INSERT INTO `utilisateurs` (`id`, `nom`, `mdp`) VALUES
 -- Structure de la table `utilisateurs_unitesdecompte`
 --
 
-CREATE TABLE `utilisateurs_unitesdecompte` (
+DROP TABLE IF EXISTS `utilisateurs_unitesdecompte`;
+CREATE TABLE IF NOT EXISTS `utilisateurs_unitesdecompte` (
   `id_utilisateur` int(11) NOT NULL,
   `id_portefeuille` int(11) NOT NULL,
   `id_unitedecompte` int(11) NOT NULL,
   `pourcentage` int(11) NOT NULL,
-  `date` date DEFAULT NULL
+  `date` date DEFAULT NULL,
+  PRIMARY KEY (`id_utilisateur`,`id_unitedecompte`,`id_portefeuille`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -99819,140 +100114,6 @@ INSERT INTO `utilisateurs_unitesdecompte` (`id_utilisateur`, `id_portefeuille`, 
 (514, 2, 66, 90, '2020-02-14'),
 (514, 2, 224, 10, '2020-02-14'),
 (515, 3, 21, 100, '2020-02-15');
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `bdd_actifs`
---
-ALTER TABLE `bdd_actifs`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `bdd_regions`
---
-ALTER TABLE `bdd_regions`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `bdd_srri`
---
-ALTER TABLE `bdd_srri`
-  ADD PRIMARY KEY (`id_unitedecompte`);
-
---
--- Index pour la table `bdd_unitesdecompte_actifs`
---
-ALTER TABLE `bdd_unitesdecompte_actifs`
-  ADD PRIMARY KEY (`id_unitedecompte`,`id_actif`);
-
---
--- Index pour la table `bdd_unitesdecompte_actions`
---
-ALTER TABLE `bdd_unitesdecompte_actions`
-  ADD PRIMARY KEY (`id_unitedecompte`,`id_actions`);
-
---
--- Index pour la table `bdd_unitesdecompte_regions`
---
-ALTER TABLE `bdd_unitesdecompte_regions`
-  ADD PRIMARY KEY (`id_unitedecompte`,`id_region`);
-
---
--- Index pour la table `bdd_valeurs`
---
-ALTER TABLE `bdd_valeurs`
-  ADD PRIMARY KEY (`id_unitedecompte`,`date_valeur`);
-
---
--- Index pour la table `fondseuro`
---
-ALTER TABLE `fondseuro`
-  ADD PRIMARY KEY (`id_utilisateur`,`id_portefeuille`);
-
---
--- Index pour la table `paypal_comptes`
---
-ALTER TABLE `paypal_comptes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `paypal_versements`
---
-ALTER TABLE `paypal_versements`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `recommandations`
---
-ALTER TABLE `recommandations`
-  ADD PRIMARY KEY (`id_emetteur`,`id_recommandation`);
-
---
--- Index pour la table `temp`
---
-ALTER TABLE `temp`
-  ADD PRIMARY KEY (`id_unitedecompte`);
-
---
--- Index pour la table `unitesdecompte`
---
-ALTER TABLE `unitesdecompte`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `utilisateurs`
---
-ALTER TABLE `utilisateurs`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `utilisateurs_unitesdecompte`
---
-ALTER TABLE `utilisateurs_unitesdecompte`
-  ADD PRIMARY KEY (`id_utilisateur`,`id_unitedecompte`,`id_portefeuille`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `bdd_actifs`
---
-ALTER TABLE `bdd_actifs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT pour la table `bdd_regions`
---
-ALTER TABLE `bdd_regions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT pour la table `paypal_comptes`
---
-ALTER TABLE `paypal_comptes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT pour la table `paypal_versements`
---
-ALTER TABLE `paypal_versements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `unitesdecompte`
---
-ALTER TABLE `unitesdecompte`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=748;
-
---
--- AUTO_INCREMENT pour la table `utilisateurs`
---
-ALTER TABLE `utilisateurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=517;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
